@@ -1,0 +1,51 @@
+import pandas as pd
+import numpy as np
+from sklearn.datasets import load_iris
+import matplotlib.pyplot as plt
+
+case = pd.read_csv('case2022.csv.csv')
+
+case.describe()
+
+case.shape
+
+case.drop(labels='2 Além do MCUP, você faz e/ou já fez parte de outro movimento estudantil? Se sim, cite-os. (Ex: Enactus, Choice, Atados, Empresa Júnior e etc) (MCUP: Movimento dos Cursinhos Universitários Populares)', axis=1, inplace=True)
+
+case.drop(labels='Qual seu país de nascimento?', axis=1, inplace=True)
+
+df1 = case[['Qual sua idade? (Responda somente números)']]
+
+df1
+
+df1.plot.hist(stacked=True, alpha=0.5)
+
+df2 = case[['Qual sua Cor ou Raça?']]
+
+df2['Qual sua Cor ou Raça?'].value_counts()
+
+categorias = ['Branco(a)', 'Pardo(a)', 'Preto(a)', 'Amarelo(a)', 'Indígena']
+valores = [523, 168, 51, 22, 1]
+plt.barh(categorias, valores)
+plt.show()
+
+df3 = case['Como você se identifica? (Cisgênero: Indivíduo que se apresenta e se identifica com o seu gênero biológico. Transgênero: Indivíduo que não se apresenta com o gênero que lhe foi designado. Não-binárie: Gênero que não se limita às categorias "masculino" e "feminino".)']
+
+df3.value_counts()
+
+labels = ['Cisgênero - Mulher', 'Cisgênero - Homem', 'Não-binárie', 'Prefiro não responder']
+valores = [393, 364, 6, 2]
+explode = (0.1, 0.1, 0.2, 0.2)
+plt.pie(valores, labels=labels, autopct='%1.1f%%', shadow=True, explode=explode)
+plt.legend(labels, loc=3)
+plt.axis('equal')
+plt.show()
+
+df4 = case[['Qual seu Estado Civil?']]
+df4
+
+df4.value_counts()
+
+grupos = ['Solteiro(a)', 'Casado(a)', 'Divorciado(a)', 'Separado(a)']
+valores = [719, 43, 2, 1]
+plt.bar(grupos, valores)
+plt.show()
